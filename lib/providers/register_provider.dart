@@ -1,3 +1,4 @@
+import 'package:app_doublev/models/person.dart';
 import 'package:flutter/material.dart';
 
 class RegisterProvider extends ChangeNotifier {
@@ -9,4 +10,19 @@ class RegisterProvider extends ChangeNotifier {
   String birthDate = '';
   String place = '';
   String address = '';
+
+  List<Person> persons = [];
+
+  storePerson(Person person) {
+    persons = [...persons, person];
+    name = '';
+    lastName = '';
+    birthDate = '';
+    place = '';
+    address = '';
+
+    print(persons);
+
+    notifyListeners();
+  }
 }

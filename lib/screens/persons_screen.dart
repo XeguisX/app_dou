@@ -1,15 +1,12 @@
 import 'package:app_doublev/models/person.dart';
 import 'package:app_doublev/providers/register_provider.dart';
-import 'package:app_doublev/screens/persons_screen.dart';
-import 'package:app_doublev/screens/register/step_two_screen.dart';
-import 'package:app_doublev/widgets/custom_button.dart';
-import 'package:app_doublev/widgets/custom_icon.dart';
-import 'package:app_doublev/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class StepThreeScreen extends StatelessWidget {
-  const StepThreeScreen({super.key});
+import '../widgets/custom_icon.dart';
+
+class PersonsScreen extends StatelessWidget {
+  const PersonsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +17,7 @@ class StepThreeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              _Header(),
-              SizedBox(height: 28),
-              _StepOneForm(),
-              _Footer(),
+              ListPersons(),
             ],
           ),
         ),
@@ -32,44 +26,32 @@ class StepThreeScreen extends StatelessWidget {
   }
 }
 
-class _Header extends StatelessWidget {
-  const _Header({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 22, left: 24),
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: const CustomIcon(
-              icon: Icons.arrow_back_ios_new_outlined,
-            ),
-          ),
-          const SizedBox(width: 18),
-          const Text(
-            'Paso 3 de 3',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StepOneForm extends StatelessWidget {
-  const _StepOneForm({Key? key}) : super(key: key);
+class ListPersons extends StatelessWidget {
+  const ListPersons({super.key});
 
   @override
   Widget build(BuildContext context) {
     final registerForm = Provider.of<RegisterProvider>(context);
 
+    return ListView.builder(
+      physics: const ScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: registerForm.persons.length,
+      itemBuilder: (_, index) {
+        return ItemPerson(person: registerForm.persons[index]);
+      },
+    );
+  }
+}
+
+class ItemPerson extends StatelessWidget {
+  const ItemPerson({super.key, required this.person});
+
+  final Person person;
+
+  @override
+  Widget build(BuildContext context) {
     const TextStyle textStyleTitle = TextStyle(
         color: Colors.white70, fontWeight: FontWeight.bold, fontSize: 16);
     const TextStyle textStyleContent =
@@ -81,7 +63,7 @@ class _StepOneForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Revisa y confirma',
+            'Usuario',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w900,
@@ -101,14 +83,12 @@ class _StepOneForm extends StatelessWidget {
                       style: textStyleTitle,
                     ),
                     TextSpan(
-                      text: registerForm.name,
+                      text: person.name,
                       style: textStyleContent,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
             ],
           ),
           const SizedBox(height: 24),
@@ -123,14 +103,12 @@ class _StepOneForm extends StatelessWidget {
                       style: textStyleTitle,
                     ),
                     TextSpan(
-                      text: registerForm.lastName,
+                      text: person.lastName,
                       style: textStyleContent,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
             ],
           ),
           const SizedBox(height: 24),
@@ -145,14 +123,12 @@ class _StepOneForm extends StatelessWidget {
                       style: textStyleTitle,
                     ),
                     TextSpan(
-                      text: registerForm.birthDate,
+                      text: person.birthDate,
                       style: textStyleContent,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
             ],
           ),
           const SizedBox(height: 24),
@@ -167,48 +143,16 @@ class _StepOneForm extends StatelessWidget {
                       style: textStyleTitle,
                     ),
                     TextSpan(
-                      text: registerForm.address,
+                      text: person.address,
                       style: textStyleContent,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
             ],
           ),
           const SizedBox(height: 24),
         ],
-      ),
-    );
-  }
-}
-
-class _Footer extends StatelessWidget {
-  const _Footer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final registerForm = Provider.of<RegisterProvider>(context);
-
-    return Center(
-      child: CustomButton(
-        label: 'Guardar',
-        onPressed: () async {
-          await registerForm.storePerson(
-            Person(
-              registerForm.name,
-              registerForm.lastName,
-              registerForm.birthDate,
-              registerForm.address,
-            ),
-          );
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const PersonsScreen()),
-          );
-        },
       ),
     );
   }
