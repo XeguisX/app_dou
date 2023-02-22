@@ -1,8 +1,10 @@
+import 'package:app_doublev/data/address.dart';
 import 'package:app_doublev/data/person.dart';
 import 'package:app_doublev/presentation/controller/register_person_provider.dart';
 import 'package:app_doublev/presentation/ui/screens/persons_screen.dart';
 import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
 import 'package:app_doublev/presentation/ui/widgets/custom_icon.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -79,16 +81,6 @@ class _StepOneForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Revisa y confirma',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.left,
-          ),
-          const SizedBox(height: 24),
           PersonInfoItem(title: 'Nombre: ', description: registerForm.name),
           const SizedBox(height: 24),
           PersonInfoItem(
@@ -98,8 +90,9 @@ class _StepOneForm extends StatelessWidget {
               title: 'Fecha de Nacimiento: ',
               description: registerForm.birthDate),
           const SizedBox(height: 24),
-          PersonInfoItem(
-              title: 'Dirección: ', description: registerForm.address),
+          Text('Direcciones', style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: 8),
+          const AddressesInfoItems(),
         ],
       ),
     );
@@ -146,6 +139,76 @@ class PersonInfoItem extends StatelessWidget {
   }
 }
 
+class AddressesInfoItems extends StatelessWidget {
+  const AddressesInfoItems({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final registerForm = Provider.of<RegisterPersonProvider>(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: Column(
+        children: [
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: registerForm.addresses.length,
+            itemBuilder: (context, index) => AddressItem(
+              address: registerForm.addresses[index],
+              index: index,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddressItem extends StatelessWidget {
+  const AddressItem({
+    super.key,
+    required this.address,
+    required this.index,
+  });
+
+  final Address address;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(address.place,
+              style: const TextStyle(
+                  color: Colors.white70,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16)),
+          AutoSizeText(address.address,
+              maxLines: 1,
+              style: const TextStyle(color: Colors.white70, fontSize: 16)),
+          const SizedBox(width: 2),
+          GestureDetector(
+            onTap: () {
+              // registerForm.editAddress(index, placeCtrl, addressCtrl);
+            },
+            child: const CustomIcon(icon: Icons.edit),
+          ),
+          GestureDetector(
+            onTap: () {
+              // registerForm.deleteAddress(index);
+            },
+            child: const CustomIcon(icon: Icons.delete),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _Footer extends StatelessWidget {
   const _Footer({super.key});
 
@@ -156,16 +219,7 @@ class _Footer extends StatelessWidget {
     return Center(
       child: CustomButton(
         label: 'Guardar',
-        onPressed: () async {
-          await registerForm.storePerson(
-            Person(
-              registerForm.name,
-              registerForm.lastName,
-              registerForm.birthDate,
-              registerForm.address,
-            ),
-          );
-
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const PersonsScreen()),

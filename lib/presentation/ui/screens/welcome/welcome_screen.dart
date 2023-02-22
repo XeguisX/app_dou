@@ -1,4 +1,4 @@
-import 'package:app_doublev/presentation/ui/screens/register/step_one_screen.dart';
+import 'package:app_doublev/presentation/ui/screens/register/step_one/step_one_screen.dart';
 import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 

@@ -29,11 +29,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   gradient_borders: ^1.0.0
-  http: ^0.13.5
   provider: ^6.0.5
   scroll_date_picker: ^3.6.1
 
