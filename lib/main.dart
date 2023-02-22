@@ -25,13 +25,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       title: 'Products App',
       initialRoute: 'welcome',
       routes: {
         'welcome': (_) => const WelcomeScreen(),
       },
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.black38,
+      ),
     );
   }
 }

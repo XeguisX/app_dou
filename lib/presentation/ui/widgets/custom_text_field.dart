@@ -9,20 +9,26 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.isEmail = false,
     this.autofocus = false,
+    this.readOnly = false,
     this.validator,
     this.onChanged,
     this.enabled = true,
-    this.initialValue = '',
+    this.initialValue,
     this.onTap,
+    this.controller,
+    this.errorText,
   });
 
   final String? initialValue;
   final String fileType;
+  final String? errorText;
   final String hintText;
-  final bool? autofocus;
-  final bool? enabled;
-  final bool? isPassword;
-  final bool? isEmail;
+  final bool autofocus;
+  final bool readOnly;
+  final bool enabled;
+  final bool isPassword;
+  final bool isEmail;
+  final TextEditingController? controller;
   final Function()? onTap;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
@@ -44,15 +50,18 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           TextFormField(
+            readOnly: readOnly,
+            controller: controller,
             onTap: onTap,
-            initialValue: initialValue!,
-            enabled: enabled!,
-            autofocus: autofocus!,
+            initialValue: initialValue,
+            enabled: enabled,
+            autofocus: autofocus,
             keyboardType:
-                isEmail! ? TextInputType.emailAddress : TextInputType.text,
-            obscureText: isPassword!,
+                isEmail ? TextInputType.emailAddress : TextInputType.text,
+            obscureText: isPassword,
             style: const TextStyle(color: Colors.white70),
             decoration: InputDecoration(
+              errorText: errorText,
               isDense: true,
               filled: true,
               fillColor: const Color.fromARGB(15, 255, 255, 255),

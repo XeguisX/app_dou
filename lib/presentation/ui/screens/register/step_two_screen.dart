@@ -12,7 +12,6 @@ class StepTwoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black38,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -36,34 +35,31 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 22, left: 24),
-      child: Row(
+      padding: const EdgeInsets.only(left: 14, top: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: const CustomIcon(
-              icon: Icons.arrow_back_ios_new_outlined,
-            ),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const CustomIcon(
+                  icon: Icons.arrow_back_ios_new_outlined,
+                ),
+              ),
+              const SizedBox(width: 18),
+              Text(
+                'Direcciones',
+                style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.left,
+              ),
+            ],
           ),
-          const SizedBox(width: 18),
-          const Text(
+          const SizedBox(height: 24),
+          Text(
             'Paso 2 de 3',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.left,
-          ),
-          const SizedBox(width: 160),
-          GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const StepThreeScreen()),
-            ),
-            child: const CustomIcon(
-              icon: Icons.arrow_forward_ios_outlined,
-            ),
           ),
         ],
       ),
@@ -79,7 +75,7 @@ class _StepOneForm extends StatelessWidget {
     final registerForm = Provider.of<RegisterPersonProvider>(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Form(
         key: registerForm.formKeyStepTwo,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -139,6 +135,11 @@ class _Footer extends StatelessWidget {
             print(registerForm.birthDate);
             print(registerForm.place);
             print(registerForm.address);
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const StepThreeScreen()),
+            );
           },
         ),
         const SizedBox(width: 18),

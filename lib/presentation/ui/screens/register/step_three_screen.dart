@@ -1,10 +1,8 @@
 import 'package:app_doublev/data/person.dart';
 import 'package:app_doublev/presentation/controller/register_person_provider.dart';
 import 'package:app_doublev/presentation/ui/screens/persons_screen.dart';
-import 'package:app_doublev/presentation/ui/screens/register/step_two_screen.dart';
 import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
 import 'package:app_doublev/presentation/ui/widgets/custom_icon.dart';
-import 'package:app_doublev/presentation/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +12,6 @@ class StepThreeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black38,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -38,23 +35,30 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 22, left: 24),
-      child: Row(
+      padding: const EdgeInsets.only(left: 14, top: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: const CustomIcon(
-              icon: Icons.arrow_back_ios_new_outlined,
-            ),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const CustomIcon(
+                  icon: Icons.arrow_back_ios_new_outlined,
+                ),
+              ),
+              const SizedBox(width: 18),
+              Text(
+                'Revisar y confirmar',
+                style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.left,
+              ),
+            ],
           ),
-          const SizedBox(width: 18),
-          const Text(
+          const SizedBox(height: 24),
+          Text(
             'Paso 3 de 3',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.left,
           ),
         ],
@@ -70,13 +74,8 @@ class _StepOneForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final registerForm = Provider.of<RegisterPersonProvider>(context);
 
-    const TextStyle textStyleTitle = TextStyle(
-        color: Colors.white70, fontWeight: FontWeight.bold, fontSize: 16);
-    const TextStyle textStyleContent =
-        TextStyle(color: Colors.white70, fontSize: 16);
-
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -90,96 +89,59 @@ class _StepOneForm extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 24),
-          Row(
-            children: [
-              RichText(
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Nombre: ',
-                      style: textStyleTitle,
-                    ),
-                    TextSpan(
-                      text: registerForm.name,
-                      style: textStyleContent,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
-            ],
-          ),
+          PersonInfoItem(title: 'Nombre: ', description: registerForm.name),
           const SizedBox(height: 24),
-          Row(
-            children: [
-              RichText(
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Apellido: ',
-                      style: textStyleTitle,
-                    ),
-                    TextSpan(
-                      text: registerForm.lastName,
-                      style: textStyleContent,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
-            ],
-          ),
+          PersonInfoItem(
+              title: 'Apellido: ', description: registerForm.lastName),
           const SizedBox(height: 24),
-          Row(
-            children: [
-              RichText(
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Fecha de nacimiento: ',
-                      style: textStyleTitle,
-                    ),
-                    TextSpan(
-                      text: registerForm.birthDate,
-                      style: textStyleContent,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
-            ],
-          ),
+          PersonInfoItem(
+              title: 'Fecha de Nacimiento: ',
+              description: registerForm.birthDate),
           const SizedBox(height: 24),
-          Row(
-            children: [
-              RichText(
-                overflow: TextOverflow.ellipsis,
-                text: TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: 'Dirección: ',
-                      style: textStyleTitle,
-                    ),
-                    TextSpan(
-                      text: registerForm.address,
-                      style: textStyleContent,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              const CustomIcon(icon: Icons.edit),
-            ],
-          ),
-          const SizedBox(height: 24),
+          PersonInfoItem(
+              title: 'Dirección: ', description: registerForm.address),
         ],
       ),
+    );
+  }
+}
+
+class PersonInfoItem extends StatelessWidget {
+  const PersonInfoItem({
+    super.key,
+    required this.title,
+    required this.description,
+  });
+
+  final String title;
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        RichText(
+          overflow: TextOverflow.ellipsis,
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: title,
+                style: const TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+              ),
+              TextSpan(
+                text: description,
+                style: const TextStyle(color: Colors.white70, fontSize: 16),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        const CustomIcon(icon: Icons.edit),
+      ],
     );
   }
 }
