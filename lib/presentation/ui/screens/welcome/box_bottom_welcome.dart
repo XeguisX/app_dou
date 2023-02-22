@@ -1,4 +1,4 @@
-import 'package:app_doublev/presentation/ui/screens/register/step_one/step_one_screen.dart';
+import 'package:app_doublev/presentation/ui/screens/register_person/step_one/step_one_screen.dart';
 import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +15,7 @@ class BoxBottomWelcome extends StatelessWidget {
       height: size.height * 0.4,
       decoration: const BoxDecoration(
         color: Colors.black38,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(34),
-          topRight: Radius.circular(34),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(34)),
         boxShadow: [
           BoxShadow(
             color: Colors.white12,
@@ -38,7 +35,7 @@ class BoxBottomWelcome extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 22),
+          const SizedBox(height: 24),
           const Text(
             'Podrás realizar registros de tus visitas a sitios importantes',
             style: TextStyle(

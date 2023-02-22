@@ -5,20 +5,20 @@ class CustomButton extends StatelessWidget {
     Key? key,
     required this.label,
     this.onPressed,
-    this.width,
-    this.height,
+    this.width = 122,
+    this.height = 54,
   }) : super(key: key);
 
   final String label;
-  final double? width;
-  final double? height;
+  final double width;
+  final double height;
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 122,
-      height: height ?? 54,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
