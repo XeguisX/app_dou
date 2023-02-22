@@ -1,5 +1,6 @@
 import 'package:app_doublev/presentation/controller/register_person_provider.dart';
 import 'package:app_doublev/presentation/ui/screens/welcome/welcome_screen.dart';
+import 'package:app_doublev/presentation/ui/screens/person_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

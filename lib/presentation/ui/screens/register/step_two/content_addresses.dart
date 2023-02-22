@@ -22,16 +22,22 @@ class ContentAddresses extends StatelessWidget {
       child: Column(
         children: [
           ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: registerForm.addresses.length,
-            itemBuilder: (context, index) => AddressInfoItem(
-              address: registerForm.addresses[index],
-              index: index,
-              placeCtrl: placeCtrl,
-              addressCtrl: addressCtrl,
-            ),
-          ),
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: registerForm.addresses.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    AddressInfoItem(
+                      address: registerForm.addresses[index],
+                      index: index,
+                      placeCtrl: placeCtrl,
+                      addressCtrl: addressCtrl,
+                    ),
+                    const Divider(color: Colors.white60),
+                  ],
+                );
+              }),
         ],
       ),
     );

@@ -15,7 +15,10 @@ class FooterStepTwo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const SizedBox(width: 18),
-        const CustomButton(label: 'Atras'),
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: const CustomButton(label: 'Atras'),
+        ),
         CustomButton(
           label: 'Siguiente',
           onPressed: () {
@@ -23,7 +26,6 @@ class FooterStepTwo extends StatelessWidget {
               registerForm.formKeyStepTwo.currentState?.validate();
               return;
             }
-
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const StepThreeScreen()),
