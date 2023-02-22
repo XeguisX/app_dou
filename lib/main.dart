@@ -1,5 +1,5 @@
-import 'package:app_doublev/providers/register_provider.dart';
-import 'package:app_doublev/screens/welcome/welcome_screen.dart';
+import 'package:app_doublev/presentation/controller/register_person_provider.dart';
+import 'package:app_doublev/presentation/ui/screens/welcome/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +12,7 @@ class AppState extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => RegisterProvider()),
+        ChangeNotifierProvider(create: (_) => RegisterPersonProvider()),
       ],
       child: const MyApp(),
     );
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       title: 'Products App',
       initialRoute: 'welcome',

@@ -1,5 +1,5 @@
-import 'package:app_doublev/screens/register/step_one_screen.dart';
-import 'package:app_doublev/widgets/custom_button.dart';
+import 'package:app_doublev/presentation/ui/screens/register/step_one_screen.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {

@@ -1,13 +1,13 @@
-import 'package:app_doublev/providers/register_provider.dart';
-import 'package:app_doublev/screens/register/step_two_screen.dart';
-import 'package:app_doublev/widgets/custom_button.dart';
-import 'package:app_doublev/widgets/custom_icon.dart';
-import 'package:app_doublev/widgets/custom_text_field.dart';
+import 'package:app_doublev/presentation/controller/register_person_provider.dart';
+import 'package:app_doublev/presentation/ui/screens/register/step_three_screen.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_icon.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class StepOneScreen extends StatelessWidget {
-  const StepOneScreen({super.key});
+class StepTwoScreen extends StatelessWidget {
+  const StepTwoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _Header extends StatelessWidget {
           ),
           const SizedBox(width: 18),
           const Text(
-            'Paso 1 de 3',
+            'Paso 2 de 3',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w900,
@@ -59,7 +59,7 @@ class _Header extends StatelessWidget {
           GestureDetector(
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const StepTwoScreen()),
+              MaterialPageRoute(builder: (context) => const StepThreeScreen()),
             ),
             child: const CustomIcon(
               icon: Icons.arrow_forward_ios_outlined,
@@ -76,20 +76,21 @@ class _StepOneForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registerForm = Provider.of<RegisterProvider>(context);
+    final registerForm = Provider.of<RegisterPersonProvider>(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 38),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 22),
       child: Form(
-        key: registerForm.formKeyStepOne,
+        key: registerForm.formKeyStepTwo,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
+            const SizedBox(height: 22),
             CustomTextField(
-              fileType: 'Nombre',
-              hintText: '  Abdias',
+              fileType: 'Lugar',
+              hintText: '  Casa o trabajo',
               autofocus: true,
-              onChanged: (value) => registerForm.name = value,
+              onChanged: (value) => registerForm.place = value,
               validator: (value) {
                 return value != null && value.length >= 4
                     ? null
@@ -98,15 +99,19 @@ class _StepOneForm extends StatelessWidget {
             ),
             const SizedBox(height: 22),
             CustomTextField(
-              fileType: 'Apellido',
-              hintText: '  Eguis',
-              onChanged: (value) => registerForm.lastName = value,
+              fileType: 'Dirección',
+              hintText: '  calle 30 #23-32',
+              autofocus: true,
+              onChanged: (value) => registerForm.address = value,
               validator: (value) {
                 return value != null && value.length >= 4
                     ? null
                     : 'La nombre debe tener más de 4 caracteres';
               },
             ),
+            const SizedBox(height: 22),
+            CustomButton(label: 'Añadir Dirección', width: 154, height: 48),
+            const SizedBox(height: 22),
           ],
         ),
       ),
@@ -119,15 +124,25 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registerForm = Provider.of<RegisterProvider>(context);
+    final registerForm = Provider.of<RegisterPersonProvider>(context);
 
-    return Center(
-      child: CustomButton(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const SizedBox(width: 18),
+        const CustomButton(label: 'Atras'),
+        CustomButton(
           label: 'Siguiente',
           onPressed: () {
             print(registerForm.name);
             print(registerForm.lastName);
-          }),
+            print(registerForm.birthDate);
+            print(registerForm.place);
+            print(registerForm.address);
+          },
+        ),
+        const SizedBox(width: 18),
+      ],
     );
   }
 }

@@ -1,10 +1,10 @@
-import 'package:app_doublev/models/person.dart';
-import 'package:app_doublev/providers/register_provider.dart';
-import 'package:app_doublev/screens/persons_screen.dart';
-import 'package:app_doublev/screens/register/step_two_screen.dart';
-import 'package:app_doublev/widgets/custom_button.dart';
-import 'package:app_doublev/widgets/custom_icon.dart';
-import 'package:app_doublev/widgets/custom_text_field.dart';
+import 'package:app_doublev/data/person.dart';
+import 'package:app_doublev/presentation/controller/register_person_provider.dart';
+import 'package:app_doublev/presentation/ui/screens/persons_screen.dart';
+import 'package:app_doublev/presentation/ui/screens/register/step_two_screen.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_button.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_icon.dart';
+import 'package:app_doublev/presentation/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +68,7 @@ class _StepOneForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registerForm = Provider.of<RegisterProvider>(context);
+    final registerForm = Provider.of<RegisterPersonProvider>(context);
 
     const TextStyle textStyleTitle = TextStyle(
         color: Colors.white70, fontWeight: FontWeight.bold, fontSize: 16);
@@ -189,7 +189,7 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registerForm = Provider.of<RegisterProvider>(context);
+    final registerForm = Provider.of<RegisterPersonProvider>(context);
 
     return Center(
       child: CustomButton(

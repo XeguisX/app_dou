@@ -1,7 +1,7 @@
-import 'package:app_doublev/models/person.dart';
+import 'package:app_doublev/data/person.dart';
 import 'package:flutter/material.dart';
 
-class RegisterProvider extends ChangeNotifier {
+class RegisterPersonProvider extends ChangeNotifier {
   GlobalKey<FormState> formKeyStepOne = GlobalKey<FormState>();
   GlobalKey<FormState> formKeyStepTwo = GlobalKey<FormState>();
 
@@ -15,11 +15,15 @@ class RegisterProvider extends ChangeNotifier {
 
   storePerson(Person person) {
     persons = [...persons, person];
+
     name = '';
     lastName = '';
     birthDate = '';
     place = '';
     address = '';
+
+    formKeyStepOne.currentState?.reset();
+    formKeyStepTwo.currentState?.reset();
 
     print(persons);
 

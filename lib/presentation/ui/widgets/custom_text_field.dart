@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.onChanged,
     this.enabled = true,
     this.initialValue = '',
+    this.onTap,
   });
 
   final String? initialValue;
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final bool? enabled;
   final bool? isPassword;
   final bool? isEmail;
+  final Function()? onTap;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
 
@@ -42,6 +44,7 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           TextFormField(
+            onTap: onTap,
             initialValue: initialValue!,
             enabled: enabled!,
             autofocus: autofocus!,
@@ -50,6 +53,7 @@ class CustomTextField extends StatelessWidget {
             obscureText: isPassword!,
             style: const TextStyle(color: Colors.white70),
             decoration: InputDecoration(
+              isDense: true,
               filled: true,
               fillColor: const Color.fromARGB(15, 255, 255, 255),
               enabledBorder: OutlineInputBorder(

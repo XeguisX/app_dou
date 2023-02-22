@@ -1,5 +1,5 @@
-import 'package:app_doublev/models/person.dart';
-import 'package:app_doublev/providers/register_provider.dart';
+import 'package:app_doublev/data/person.dart';
+import 'package:app_doublev/presentation/controller/register_person_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,7 +31,7 @@ class ListPersons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final registerForm = Provider.of<RegisterProvider>(context);
+    final registerForm = Provider.of<RegisterPersonProvider>(context);
 
     return ListView.builder(
       physics: const ScrollPhysics(),
